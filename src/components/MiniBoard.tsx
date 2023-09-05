@@ -1,31 +1,12 @@
-import cx from "classnames";
+import React from "react";
+import { range } from "../helpers";
 
 const MiniBoard: React.FC = () => (
-  <div className="flex w-[150px] h-[150px] flex-wrap">
-    <Square directions={["b", "r"]} />
-    <Square directions={["b", "r"]} />
-    <Square directions={["b"]} />
-
-    <Square directions={["b", "r"]} />
-    <Square directions={["b", "r"]} />
-    <Square directions={["b"]} />
-
-    <Square directions={["r"]} />
-    <Square directions={["r"]} />
-    <Square directions={[]} />
+  <div className="bg-zinc-200 grid shadow-md grid-cols-3 grid-rows-3 gap-[2px]">
+    {range(0, 9).map((i) => (
+      <div key={i} className="bg-white shadow-md w-[50px] h-[50px]" />
+    ))}
   </div>
 );
 
 export default MiniBoard;
-
-const Square: React.FC<{ directions: string[] }> = ({ directions }) => {
-  // console.log(directions.map((direction) => `border-${direction}-2`).join(" "));
-  return (
-    <div
-      className={cx(
-        "border-black w-[50px] h-[50px]",
-        directions.map((direction) => `border-${direction}-2`).join(" ")
-      )}
-    ></div>
-  );
-};
