@@ -1,10 +1,23 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 import { range } from "../helpers";
+import Square from "./Square";
+import { SquareState } from "../types";
 
-const MiniBoard: React.FC = () => (
+type Props = {
+  onClick(event: MouseEvent, boardId: number, squareId: number): void;
+  boardId: number;
+  boardState: Array<SquareState>;
+};
+
+const MiniBoard: React.FC<Props> = ({ boardState, boardId, onClick }) => (
   <div className="bg-zinc-200 grid shadow-md grid-cols-3 grid-rows-3 gap-[2px]">
     {range(0, 9).map((i) => (
-      <div key={i} className="bg-white shadow-md w-[50px] h-[50px]" />
+      <Square
+        key={i}
+        id={i}
+        state={boardState[i]}
+        onClick={(event, squareId) => onClick(event, boardId, squareId)}
+      />
     ))}
   </div>
 );
