@@ -17,7 +17,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     boardId: 0,
-    onClick: (event, boardId, squareId) => {},
+    onClick: (_event, _boardId, _squareId) => {},
     boardState: ["O", "", "", "", "X", "X", "", "O", "O"],
   },
 };
@@ -25,8 +25,17 @@ export const Default: Story = {
 export const Highlighted: Story = {
   args: {
     boardId: 0,
-    onClick: (event, boardId, squareId) => {},
+    onClick: (_event, _boardId, _squareId) => {},
     boardState: ["O", "", "", "", "X", "X", "", "O", "O"],
     highlighted: true,
+  },
+};
+
+export const Won: Story = {
+  args: {
+    boardId: 0,
+    onClick: (_event, _boardId, _squareId) => {},
+    boardState: ["O", "X", "X", "X", "O", "", "O", "", "O"],
+    isWon: "X",
   },
 };
