@@ -1,54 +1,190 @@
 import React, { MouseEvent, useState } from "react";
 import MiniBoard from "./MiniBoard";
-import { range } from "../helpers";
-import { SquareState } from "../types";
+import { boardIsWon, gameIsWon, range } from "../helpers";
+import { Board, SquareType } from "../types";
+import clsx from "clsx";
+import { Circle, X } from "react-feather";
 
-const Board: React.FC = () => {
+const Game: React.FC<{ won: SquareType }> = ({ won }) => {
+  // let won: SquareType = undefined;
   const [turn, setTurn] = useState<"X" | "O">("X");
-  const [selectedBoard, setSelectedBoard] = useState<number | null>(null);
-  const [gameState, setGameState] = useState<Array<Array<SquareState>>>([
-    ["", "", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", "", ""],
+  const [gameState, setGameState] = useState<Array<Board>>([
+    {
+      squares: [
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+      ],
+    },
+    {
+      squares: [
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+      ],
+    },
+    {
+      squares: [
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+      ],
+    },
+    {
+      squares: [
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+      ],
+    },
+    {
+      squares: [
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+      ],
+    },
+    {
+      squares: [
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+      ],
+    },
+    {
+      squares: [
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+      ],
+    },
+    {
+      squares: [
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+      ],
+    },
+    {
+      squares: [
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+      ],
+    },
   ]);
 
   const updateGameState = (
     event: MouseEvent,
     boardId: number,
     squareId: number
-  ) => {
+  ): void => {
     event.preventDefault();
-    const newGameState = gameState;
+    const newGameState = [...gameState];
+    const newBoard = newGameState[boardId];
+    const winner = gameIsWon(gameState);
+    if (winner) {
+      won = winner;
+      return;
+    }
+
     if (
-      newGameState[boardId][squareId] === "" &&
-      (selectedBoard === null || boardId === selectedBoard)
+      newBoard.squares[squareId] === undefined &&
+      (newBoard.highlighted ||
+        newGameState.filter((board) => board.highlighted === true).length === 0)
     ) {
-      newGameState[boardId][squareId] = turn; // set the square to "X" or "O"
+      newBoard.squares[squareId] = turn; // set the square to "X" or "O"
+
+      if (boardIsWon(newBoard.squares)) {
+        newBoard.won = turn;
+      }
+
+      newGameState[boardId].highlighted = false; // un-highlight the previously highlighted board
+      if (newGameState[squareId].won === undefined) {
+        newGameState[squareId].highlighted = true; // highlight the next board
+      }
+
       setGameState(newGameState);
+
       turn === "X" ? setTurn("O") : setTurn("X");
-      setSelectedBoard(squareId);
     }
   };
 
   return (
-    <div className="bg-zinc-200 grid grid-cols-3 grid-rows-3 gap-3 max-w-fit place-items-center">
-      {range(0, 9).map((i) => (
-        <MiniBoard
-          key={i}
-          boardId={i}
-          boardState={gameState[i]}
-          onClick={updateGameState}
-          highlighted={i === selectedBoard}
-        />
-      ))}
+    <div className="relative grid place-items-center">
+      <div className={clsx("absolute text-lg", won ? "block z-10" : "hidden")}>
+        {won === "X" ? (
+          <X className="w-96 h-96 text-cyan-900" />
+        ) : (
+          <Circle className="w-96 h-96 text-cyan-900" />
+        )}
+      </div>
+      <div className="bg-zinc-200 grid grid-cols-3 grid-rows-3 gap-3 max-w-fit place-items-center">
+        {range(0, 9).map((i) => (
+          <MiniBoard
+            key={i}
+            boardId={i}
+            boardInfo={gameState[i]}
+            onClick={updateGameState}
+          />
+        ))}
+      </div>
     </div>
   );
 };
 
-export default Board;
+export default Game;

@@ -1,11 +1,11 @@
 import React, { MouseEvent } from "react";
 import { X, Circle } from "react-feather";
-import { SquareState } from "../types";
+import { SquareType } from "../types";
 
 type Props = {
   onClick(event: MouseEvent, squareId: number): void;
   id: number;
-  state: SquareState;
+  state: SquareType;
 };
 
 const Square: React.FC<Props> = ({ state, id, onClick }) => {
