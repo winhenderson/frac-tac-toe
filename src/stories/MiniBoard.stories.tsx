@@ -16,6 +16,17 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    boardId: 0,
+    onClick: (event, boardId, squareId) => {},
     boardState: ["O", "", "", "", "X", "X", "", "O", "O"],
+  },
+};
+
+export const Highlighted: Story = {
+  args: {
+    boardId: 0,
+    onClick: (event, boardId, squareId) => {},
+    boardState: ["O", "", "", "", "X", "X", "", "O", "O"],
+    highlighted: true,
   },
 };

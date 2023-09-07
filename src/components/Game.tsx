@@ -5,6 +5,7 @@ import { SquareState } from "../types";
 
 const Board: React.FC = () => {
   const [turn, setTurn] = useState<"X" | "O">("X");
+  const [selectedBoard, setSelectedBoard] = useState<number | null>(null);
   const [gameState, setGameState] = useState<Array<Array<SquareState>>>([
     ["", "", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", "", ""],
@@ -24,10 +25,14 @@ const Board: React.FC = () => {
   ) => {
     event.preventDefault();
     const newGameState = gameState;
-    if (newGameState[boardId][squareId] === "") {
-      newGameState[boardId][squareId] = turn;
+    if (
+      newGameState[boardId][squareId] === "" &&
+      (selectedBoard === null || boardId === selectedBoard)
+    ) {
+      newGameState[boardId][squareId] = turn; // set the square to "X" or "O"
       setGameState(newGameState);
       turn === "X" ? setTurn("O") : setTurn("X");
+      setSelectedBoard(squareId);
     }
   };
 
@@ -39,6 +44,7 @@ const Board: React.FC = () => {
           boardId={i}
           boardState={gameState[i]}
           onClick={updateGameState}
+          highlighted={i === selectedBoard}
         />
       ))}
     </div>
