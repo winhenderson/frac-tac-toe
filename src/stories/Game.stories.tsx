@@ -14,14 +14,20 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Empty: Story = {
   args: {
     won: undefined,
   },
 };
 
-export const Won: Story = {
+export const XWon: Story = {
   args: {
     won: "X",
+  },
+};
+
+export const OWon: Story = {
+  args: {
+    won: "O",
   },
 };

@@ -168,12 +168,17 @@ const Game: React.FC<{ won: SquareType }> = ({ won }) => {
     <div className="relative grid place-items-center">
       <div className={clsx("absolute text-lg", won ? "block z-10" : "hidden")}>
         {won === "X" ? (
-          <X className="w-96 h-96 text-cyan-900" />
+          <X className="w-[34rem] h-[34rem] text-cyan-900" />
         ) : (
-          <Circle className="w-96 h-96 text-cyan-900" />
+          <Circle className="w-[30rem] h-[30rem] text-cyan-900" />
         )}
       </div>
-      <div className="bg-zinc-200 grid grid-cols-3 grid-rows-3 gap-3 max-w-fit place-items-center">
+      <div
+        className={clsx(
+          "bg-zinc-200 grid grid-cols-3 grid-rows-3 gap-3 max-w-fit place-items-center",
+          won && "blur-[2px]"
+        )}
+      >
         {range(0, 9).map((i) => (
           <MiniBoard
             key={i}
