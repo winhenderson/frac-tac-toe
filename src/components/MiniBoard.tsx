@@ -1,13 +1,13 @@
 import React, { MouseEvent } from "react";
 import Square from "./Square";
-import { Board } from "../types";
+import { MiniBoardType } from "../types";
 import clsx from "clsx";
 import { Circle, X } from "react-feather";
 
 type Props = {
   onClick(event: MouseEvent, boardId: number, squareId: number): void;
   boardId: number;
-  boardInfo: Board;
+  boardInfo: MiniBoardType;
 };
 
 const MiniBoard: React.FC<Props> = ({

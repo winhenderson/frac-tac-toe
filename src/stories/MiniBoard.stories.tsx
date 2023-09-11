@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import MiniBoard from "../components/MiniBoard";
+import MiniBoardType from "../components/MiniBoard";
 
 const meta = {
   title: "Components/MiniBoard",

@@ -1,132 +1,22 @@
 import React, { MouseEvent, useState } from "react";
-import MiniBoard from "./MiniBoard";
-import { boardIsWon, gameIsWon, range } from "../helpers";
-import { Board, SquareType } from "../types";
+import { gameIsWon, makeBoard, range, whoWon } from "../helpers";
+import { MiniBoardType, GameBoard, SquareType } from "../types";
 import clsx from "clsx";
 import { Circle, X } from "react-feather";
+import MiniBoard from "./MiniBoard";
 
-const Game: React.FC<{ won: SquareType }> = ({ won }) => {
-  // let won: SquareType = undefined;
+const Game: React.FC<{ initialGameState?: GameBoard }> = ({
+  initialGameState,
+}) => {
   const [turn, setTurn] = useState<"X" | "O">("X");
-  const [gameState, setGameState] = useState<Array<Board>>([
-    {
-      squares: [
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-      ],
-    },
-    {
-      squares: [
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-      ],
-    },
-    {
-      squares: [
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-      ],
-    },
-    {
-      squares: [
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-      ],
-    },
-    {
-      squares: [
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-      ],
-    },
-    {
-      squares: [
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-      ],
-    },
-    {
-      squares: [
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-      ],
-    },
-    {
-      squares: [
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-      ],
-    },
-    {
-      squares: [
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-      ],
-    },
-  ]);
+  const [gameState, setGameState] = useState<GameBoard>(
+    initialGameState ??
+      makeBoard(() => ({ squares: makeBoard(() => undefined) }))
+  );
+
+  const whoWonGame = whoWon<MiniBoardType, SquareType>(gameState, (miniBoard) =>
+    whoWon(miniBoard.squares, (player) => player)
+  );
 
   const updateGameState = (
     event: MouseEvent,
@@ -134,13 +24,29 @@ const Game: React.FC<{ won: SquareType }> = ({ won }) => {
     squareId: number
   ): void => {
     event.preventDefault();
-    const newGameState = [...gameState];
+    const newGameState: GameBoard = [...gameState];
     const newBoard = newGameState[boardId];
-    const winner = gameIsWon(gameState);
-    if (winner) {
-      won = winner;
-      return;
-    }
+
+    // if (gameIsWon(newBoard.squares)) {
+    //   const whoWonMiniBoard = whoWon(newBoard.squares, (player) => player);
+    //   newGameState[boardId].won = whoWonMiniBoard;
+    //   setGameState(newGameState);
+    //   return;
+    // }
+
+    // if (gameIsWon(newGameState)) {
+    //   const whoWonGame = whoWon<MiniBoardType, SquareType>(
+    //     newGameState,
+    //     (miniBoard) => whoWon(miniBoard.squares, (player) => player)
+    //   );
+    //   setGameState(newGameState);
+    //   return;
+    // }
+
+    // if (gameIsWon(gameState)) {
+    //   setGameState(newGameState);
+    //   return;
+    // }
 
     if (
       newBoard.squares[squareId] === undefined &&
@@ -149,15 +55,17 @@ const Game: React.FC<{ won: SquareType }> = ({ won }) => {
     ) {
       newBoard.squares[squareId] = turn; // set the square to "X" or "O"
 
-      if (boardIsWon(newBoard.squares)) {
-        newBoard.won = turn;
-      }
-
       newGameState[boardId].highlighted = false; // un-highlight the previously highlighted board
-      if (newGameState[squareId].won === undefined) {
+
+      const miniBoardIsWon = gameIsWon(newBoard.squares);
+      if (miniBoardIsWon) {
+        const whoWonMiniBoard = whoWon(newBoard.squares, (player) => player);
+        newGameState[boardId].won = whoWonMiniBoard;
+        setGameState(newGameState);
+      }
+      if (newGameState[squareId].won === undefined && !miniBoardIsWon) {
         newGameState[squareId].highlighted = true; // highlight the next board
       }
-
       setGameState(newGameState);
 
       turn === "X" ? setTurn("O") : setTurn("X");
@@ -166,8 +74,13 @@ const Game: React.FC<{ won: SquareType }> = ({ won }) => {
 
   return (
     <div className="relative grid place-items-center">
-      <div className={clsx("absolute text-lg", won ? "block z-10" : "hidden")}>
-        {won === "X" ? (
+      <div
+        className={clsx(
+          "absolute text-lg",
+          gameIsWon(gameState) ? "block z-10" : "hidden"
+        )}
+      >
+        {whoWonGame === "X" ? (
           <X className="w-[34rem] h-[34rem] text-cyan-900" />
         ) : (
           <Circle className="w-[30rem] h-[30rem] text-cyan-900" />
@@ -176,7 +89,7 @@ const Game: React.FC<{ won: SquareType }> = ({ won }) => {
       <div
         className={clsx(
           "bg-zinc-200 grid grid-cols-3 grid-rows-3 gap-3 max-w-fit place-items-center",
-          won && "blur-[2px]"
+          gameIsWon(gameState) && "blur-[2px]"
         )}
       >
         {range(0, 9).map((i) => (
