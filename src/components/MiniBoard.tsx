@@ -21,7 +21,7 @@ const MiniBoard: React.FC<Props> = ({
     <div className="relative grid place-items-center">
       <div
         className={clsx(
-          "absolute text-lg",
+          "absolute text-xl",
           boardIsWon ? "block z-10" : "hidden"
         )}
       >

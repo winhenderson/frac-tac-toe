@@ -1,4 +1,9 @@
-import { BoardType } from "./types";
+import { BoardType, GameBoard } from "./types";
+
+export function findIfAnyHighlighted(game: GameBoard): boolean {
+  const highlightedBoards = game.filter((board) => board.highlighted === true);
+  return highlightedBoards.length > 0;
+}
 
 export function range(start: number, end: number, step: number = 1) {
   let output: number[] = [];

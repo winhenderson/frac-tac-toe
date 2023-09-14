@@ -2,7 +2,14 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    fontFamily: {
+      sans: ["Dosis", "sans-serif"],
+    },
+    extend: {
+      fontFamily: {
+        comfortaa: ["Comfortaa", "cursive"],
+      },
+    },
   },
   plugins: [],
 };

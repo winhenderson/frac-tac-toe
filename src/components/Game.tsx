@@ -1,9 +1,10 @@
 import React, { MouseEvent, useState } from "react";
-import { makeBoard, range, whoWon } from "../helpers";
+import { findIfAnyHighlighted, makeBoard, range, whoWon } from "../helpers";
 import { MiniBoardType, GameBoard, SquareType } from "../types";
 import clsx from "clsx";
 import { Circle, X } from "react-feather";
 import MiniBoard from "./MiniBoard";
+import InfoBox from "./InfoBox";
 
 const Game: React.FC<{ initialGameState?: GameBoard }> = ({
   initialGameState,
@@ -25,8 +26,7 @@ const Game: React.FC<{ initialGameState?: GameBoard }> = ({
 
     if (
       newBoard.squares[squareId] === undefined &&
-      (newBoard.highlighted ||
-        newGameState.filter((board) => board.highlighted === true).length === 0)
+      (newBoard.highlighted || !findIfAnyHighlighted(newGameState))
     ) {
       newBoard.squares[squareId] = turn; // set the square to "X" or "O"
 
@@ -52,35 +52,44 @@ const Game: React.FC<{ initialGameState?: GameBoard }> = ({
   );
 
   return (
-    <div className="relative grid place-items-center">
-      <div
-        className={clsx(
-          "absolute text-lg",
-          whoWonGame ? "block z-10" : "hidden"
-        )}
-      >
-        {whoWonGame === "X" ? (
-          <X className="w-[34rem] h-[34rem] text-cyan-900" />
-        ) : (
-          <Circle className="w-[30rem] h-[30rem] text-cyan-900" />
-        )}
-      </div>
-      <div
-        className={clsx(
-          "bg-zinc-200 grid grid-cols-3 grid-rows-3 gap-3 max-w-fit place-items-center",
-          whoWonGame && "blur-[2px]"
-        )}
-      >
-        {range(0, 9).map((i) => (
-          <MiniBoard
-            key={i}
-            boardId={i}
-            boardInfo={gameState[i]}
-            onClick={(event, boardId, squareId) => {
-              updateGameState(event, boardId, squareId);
-            }}
-          />
-        ))}
+    <div className="mx-auto mb-auto mt-6 grid grid-flow-row place-content-center gap-6">
+      <InfoBox
+        turn={turn}
+        winner={whoWonGame}
+        playAnywhere={!findIfAnyHighlighted(gameState)}
+      />
+      <div className="place-self-center">
+        <div className="relative grid place-items-center">
+          <div
+            className={clsx(
+              "absolute text-lg",
+              whoWonGame ? "block z-10" : "hidden"
+            )}
+          >
+            {whoWonGame === "X" ? (
+              <X className="w-[34rem] h-[34rem] text-cyan-900" />
+            ) : (
+              <Circle className="w-[30rem] h-[30rem] text-cyan-900" />
+            )}
+          </div>
+          <div
+            className={clsx(
+              "bg-zinc-200 grid grid-cols-3 grid-rows-3 gap-3 max-w-fit place-items-center",
+              whoWonGame && "blur-[2px]"
+            )}
+          >
+            {range(0, 9).map((i) => (
+              <MiniBoard
+                key={i}
+                boardId={i}
+                boardInfo={gameState[i]}
+                onClick={(event, boardId, squareId) => {
+                  updateGameState(event, boardId, squareId);
+                }}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
