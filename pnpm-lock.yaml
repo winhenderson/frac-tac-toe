@@ -1,7 +1,6 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@heroicons/react': ^2.0.18
   '@storybook/addon-essentials': ^7.5.0-alpha.1
   '@storybook/addon-interactions': ^7.5.0-alpha.1
   '@storybook/addon-links': ^7.5.0-alpha.1
@@ -30,7 +29,6 @@ specifiers:
   vite: ^4.4.5
 
 dependencies:
-  '@heroicons/react': 2.0.18_react@18.2.0
   clsx: 2.0.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -1686,14 +1684,6 @@ packages:
   /@floating-ui/utils/0.1.1:
     resolution: {integrity: sha512-m0G6wlnhm/AX0H12IOWtK8gASEMffnX08RtKkCgTdHb9JpHKGloI7icFfLg9ZmQeavcvR0PKmzxClyuFPSjKWw==}
     dev: true
-
-  /@heroicons/react/2.0.18_react@18.2.0:
-    resolution: {integrity: sha512-7TyMjRrZZMBPa+/5Y8lN0iyvUU/01PeMGX2+RE7cQWpEUIcb4QotzUObFkJDejj/HUH4qjP/eQ0gzzKs2f+6Yw==}
-    peerDependencies:
-      react: '>= 16'
-    dependencies:
-      react: 18.2.0
-    dev: false
 
   /@humanwhocodes/config-array/0.11.11:
     resolution: {integrity: sha512-N2brEuAadi0CcdeMXUkhbZB84eskAc8MEX1By6qEchoVywSgXPIjou4rYsl0V3Hj0ZnuGycGCjdNgockbzeWNA==}
