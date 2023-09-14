@@ -1,5 +1,5 @@
 import React, { MouseEvent, useState } from "react";
-import { gameIsWon, makeBoard, range, whoWon } from "../helpers";
+import { makeBoard, range, whoWon } from "../helpers";
 import { MiniBoardType, GameBoard, SquareType } from "../types";
 import clsx from "clsx";
 import { Circle, X } from "react-feather";
@@ -14,39 +14,14 @@ const Game: React.FC<{ initialGameState?: GameBoard }> = ({
       makeBoard(() => ({ squares: makeBoard(() => undefined) }))
   );
 
-  const whoWonGame = whoWon<MiniBoardType, SquareType>(gameState, (miniBoard) =>
-    whoWon(miniBoard.squares, (player) => player)
-  );
-
-  const updateGameState = (
+  function updateGameState(
     event: MouseEvent,
     boardId: number,
     squareId: number
-  ): void => {
+  ): void {
     event.preventDefault();
     const newGameState: GameBoard = [...gameState];
     const newBoard = newGameState[boardId];
-
-    // if (gameIsWon(newBoard.squares)) {
-    //   const whoWonMiniBoard = whoWon(newBoard.squares, (player) => player);
-    //   newGameState[boardId].won = whoWonMiniBoard;
-    //   setGameState(newGameState);
-    //   return;
-    // }
-
-    // if (gameIsWon(newGameState)) {
-    //   const whoWonGame = whoWon<MiniBoardType, SquareType>(
-    //     newGameState,
-    //     (miniBoard) => whoWon(miniBoard.squares, (player) => player)
-    //   );
-    //   setGameState(newGameState);
-    //   return;
-    // }
-
-    // if (gameIsWon(gameState)) {
-    //   setGameState(newGameState);
-    //   return;
-    // }
 
     if (
       newBoard.squares[squareId] === undefined &&
@@ -57,27 +32,31 @@ const Game: React.FC<{ initialGameState?: GameBoard }> = ({
 
       newGameState[boardId].highlighted = false; // un-highlight the previously highlighted board
 
-      const miniBoardIsWon = gameIsWon(newBoard.squares);
-      if (miniBoardIsWon) {
-        const whoWonMiniBoard = whoWon(newBoard.squares, (player) => player);
-        newGameState[boardId].won = whoWonMiniBoard;
-        setGameState(newGameState);
-      }
-      if (newGameState[squareId].won === undefined && !miniBoardIsWon) {
+      if (
+        !whoWon(newBoard.squares, (x) => x) && // current board
+        !whoWon(newGameState[squareId].squares, (x) => x) // sending board
+      ) {
         newGameState[squareId].highlighted = true; // highlight the next board
       }
       setGameState(newGameState);
 
       turn === "X" ? setTurn("O") : setTurn("X");
     }
-  };
+  }
+
+  const whoWonGame = whoWon<MiniBoardType, SquareType>(
+    gameState,
+    (miniBoard) => {
+      return whoWon(miniBoard.squares, (x) => x);
+    }
+  );
 
   return (
     <div className="relative grid place-items-center">
       <div
         className={clsx(
           "absolute text-lg",
-          gameIsWon(gameState) ? "block z-10" : "hidden"
+          whoWonGame ? "block z-10" : "hidden"
         )}
       >
         {whoWonGame === "X" ? (
@@ -89,7 +68,7 @@ const Game: React.FC<{ initialGameState?: GameBoard }> = ({
       <div
         className={clsx(
           "bg-zinc-200 grid grid-cols-3 grid-rows-3 gap-3 max-w-fit place-items-center",
-          gameIsWon(gameState) && "blur-[2px]"
+          whoWonGame && "blur-[2px]"
         )}
       >
         {range(0, 9).map((i) => (
@@ -97,7 +76,9 @@ const Game: React.FC<{ initialGameState?: GameBoard }> = ({
             key={i}
             boardId={i}
             boardInfo={gameState[i]}
-            onClick={updateGameState}
+            onClick={(event, boardId, squareId) => {
+              updateGameState(event, boardId, squareId);
+            }}
           />
         ))}
       </div>

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import MiniBoardType from "../components/MiniBoard";
+import MiniBoard from "../components/MiniBoard";
 
 const meta = {
   title: "Components/MiniBoard",
@@ -55,13 +55,22 @@ export const Highlighted: Story = {
   },
 };
 
-export const OWon: Story = {
+export const XWonMiddleColumn: Story = {
   args: {
     boardId: 0,
     onClick: (_event, _boardId, _squareId) => {},
     boardInfo: {
-      squares: ["O", "X", "X", "X", "O", undefined, "O", undefined, "O"],
-      won: "O",
+      squares: [
+        undefined,
+        "X",
+        undefined,
+        undefined,
+        "X",
+        undefined,
+        undefined,
+        "X",
+        undefined,
+      ],
     },
   },
 };
@@ -72,7 +81,6 @@ export const XWon: Story = {
     onClick: (_event, _boardId, _squareId) => {},
     boardInfo: {
       squares: ["X", "O", "O", "O", "X", undefined, "X", undefined, "X"],
-      won: "X",
     },
   },
 };
