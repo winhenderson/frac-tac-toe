@@ -1,24 +1,37 @@
-import { BoardType, SquareType } from "./types";
+import { whoWonMiniBoard } from "./helpers";
+import { BoardType, SquareType, ZeroToNine } from "./types";
 
 export type State = {
   turn: SquareType;
   board: BoardType<BoardType<SquareType>>;
+  lastSquarePlayed?: ZeroToNine;
 };
 
 export function updateState(
   gameState: State,
-  boardId: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8,
-  squareId: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+  boardId: ZeroToNine,
+  squareId: ZeroToNine
 ): State {
   if (gameState.board[boardId][squareId]) {
+    return gameState;
+  }
+
+  if (
+    (gameState.lastSquarePlayed !== boardId &&
+      gameState.lastSquarePlayed !== undefined &&
+      !whoWonMiniBoard(gameState.board[gameState.lastSquarePlayed])) ||
+    gameState.board[boardId][squareId] != undefined
+  ) {
     return gameState;
   }
   const newState: State = JSON.parse(JSON.stringify(gameState));
 
   newState.board[boardId][squareId] = gameState.turn;
   newState.turn = newState.turn === "X" ? "O" : "X";
+  newState.lastSquarePlayed = squareId;
 
   return newState;
+
   // // const newGameState: GameBoard = [...gameState];
   // // const newBoard = state[boardId];
 

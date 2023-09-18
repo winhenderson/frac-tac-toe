@@ -56,7 +56,7 @@ export function whoWon<T, K>(
 }
 
 function areEqual<T>([x, y, z]: [T, T, T]): boolean {
-  if (x === y && y === z && z !== undefined) {
+  if (x === y && y === z && z != undefined) {
     return true;
   }
   return false;

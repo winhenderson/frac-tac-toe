@@ -33,7 +33,7 @@ describe("whoWonMiniBoard()", () => {
   });
 });
 
-function X(): BoardType<SquareType> {
+export function X(): BoardType<SquareType> {
   return [
     "X",
     "X",
