@@ -10,3 +10,9 @@ export type MiniBoardType = {
 export type GameBoard = BoardType<MiniBoardType>;
 
 export type ZeroToNine = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+
+export type State = {
+  turn: SquareType;
+  board: BoardType<BoardType<SquareType>>;
+  lastSquarePlayed?: ZeroToNine;
+};

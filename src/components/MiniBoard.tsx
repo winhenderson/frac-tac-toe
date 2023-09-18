@@ -1,20 +1,22 @@
 import React, { MouseEvent } from "react";
 import Square from "./Square";
-import { MiniBoardType, SquareType } from "../types";
+import { BoardType, SquareType, ZeroToNine } from "../types";
 import clsx from "clsx";
 import { Circle, X } from "react-feather";
 import { whoWon } from "../helpers";
 
 type Props = {
-  onClick(event: MouseEvent, boardId: number, squareId: number): void;
-  boardId: number;
-  boardInfo: MiniBoardType;
+  onClick(event: MouseEvent, boardId: ZeroToNine, squareId: ZeroToNine): void;
+  boardId: ZeroToNine;
+  squares: BoardType<SquareType>;
+  highlighted: boolean;
 };
 
 const MiniBoard: React.FC<Props> = ({
   boardId,
   onClick,
-  boardInfo: { squares, highlighted },
+  squares,
+  highlighted,
 }) => {
   const boardIsWon = whoWon<SquareType, SquareType>(squares, (x) => x);
   return (
@@ -43,7 +45,7 @@ const MiniBoard: React.FC<Props> = ({
         {squares.map((square, i) => (
           <Square
             key={i}
-            id={i}
+            id={i as ZeroToNine}
             state={square}
             onClick={(event, squareId) => onClick(event, boardId, squareId)}
           />

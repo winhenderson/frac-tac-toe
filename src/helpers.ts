@@ -1,4 +1,4 @@
-import { BoardType, GameBoard, SquareType } from "./types";
+import { BoardType, GameBoard, SquareType, State } from "./types";
 
 export function findIfAnyHighlighted(game: GameBoard): boolean {
   const highlightedBoards = game.filter((board) => board.highlighted === true);
@@ -75,4 +75,11 @@ export function makeBoard<T>(value: () => T | T): BoardType<T> {
     typeof value === "function" ? value() : value,
     typeof value === "function" ? value() : value,
   ];
+}
+
+export function emptyState(): State {
+  return {
+    turn: "X",
+    board: makeBoard(() => makeBoard(() => undefined)),
+  };
 }

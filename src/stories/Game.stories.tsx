@@ -20,9 +20,10 @@ export const Empty: Story = {
 
 export const XWins: Story = {
   args: {
-    initialGameState: [
-      {
-        squares: [
+    initialGameState: {
+      turn: "X",
+      board: [
+        [
           undefined,
           undefined,
           undefined,
@@ -33,9 +34,7 @@ export const XWins: Story = {
           undefined,
           undefined,
         ],
-      },
-      {
-        squares: [
+        [
           undefined,
           "X",
           undefined,
@@ -46,10 +45,7 @@ export const XWins: Story = {
           "X",
           undefined,
         ],
-        highlighted: false,
-      },
-      {
-        squares: [
+        [
           undefined,
           undefined,
           undefined,
@@ -60,10 +56,7 @@ export const XWins: Story = {
           "O",
           undefined,
         ],
-        highlighted: false,
-      },
-      {
-        squares: [
+        [
           undefined,
           "O",
           undefined,
@@ -74,10 +67,7 @@ export const XWins: Story = {
           undefined,
           undefined,
         ],
-        highlighted: false,
-      },
-      {
-        squares: [
+        [
           undefined,
           undefined,
           undefined,
@@ -88,10 +78,7 @@ export const XWins: Story = {
           undefined,
           undefined,
         ],
-        highlighted: false,
-      },
-      {
-        squares: [
+        [
           undefined,
           undefined,
           undefined,
@@ -102,10 +89,7 @@ export const XWins: Story = {
           undefined,
           undefined,
         ],
-        highlighted: false,
-      },
-      {
-        squares: [
+        [
           undefined,
           "O",
           undefined,
@@ -116,10 +100,7 @@ export const XWins: Story = {
           "O",
           undefined,
         ],
-        highlighted: false,
-      },
-      {
-        squares: [
+        [
           undefined,
           "O",
           undefined,
@@ -130,10 +111,7 @@ export const XWins: Story = {
           "X",
           "X",
         ],
-        highlighted: false,
-      },
-      {
-        squares: [
+        [
           undefined,
           undefined,
           undefined,
@@ -144,17 +122,17 @@ export const XWins: Story = {
           "O",
           undefined,
         ],
-        highlighted: false,
-      },
-    ],
+      ],
+    },
   },
 };
 
 export const XAboutToWin: Story = {
   args: {
-    initialGameState: [
-      {
-        squares: [
+    initialGameState: {
+      turn: "X",
+      board: [
+        [
           undefined,
           undefined,
           undefined,
@@ -165,9 +143,7 @@ export const XAboutToWin: Story = {
           undefined,
           undefined,
         ],
-      },
-      {
-        squares: [
+        [
           undefined,
           "X",
           undefined,
@@ -178,10 +154,7 @@ export const XAboutToWin: Story = {
           "X",
           undefined,
         ],
-        highlighted: false,
-      },
-      {
-        squares: [
+        [
           undefined,
           undefined,
           undefined,
@@ -192,10 +165,7 @@ export const XAboutToWin: Story = {
           "O",
           undefined,
         ],
-        highlighted: false,
-      },
-      {
-        squares: [
+        [
           undefined,
           "O",
           undefined,
@@ -206,10 +176,7 @@ export const XAboutToWin: Story = {
           undefined,
           undefined,
         ],
-        highlighted: false,
-      },
-      {
-        squares: [
+        [
           undefined,
           undefined,
           undefined,
@@ -220,10 +187,7 @@ export const XAboutToWin: Story = {
           undefined,
           undefined,
         ],
-        highlighted: false,
-      },
-      {
-        squares: [
+        [
           undefined,
           undefined,
           undefined,
@@ -234,10 +198,7 @@ export const XAboutToWin: Story = {
           undefined,
           undefined,
         ],
-        highlighted: false,
-      },
-      {
-        squares: [
+        [
           undefined,
           "O",
           undefined,
@@ -248,10 +209,7 @@ export const XAboutToWin: Story = {
           "O",
           undefined,
         ],
-        highlighted: false,
-      },
-      {
-        squares: [
+        [
           undefined,
           "O",
           undefined,
@@ -262,10 +220,7 @@ export const XAboutToWin: Story = {
           "X",
           undefined,
         ],
-        highlighted: true,
-      },
-      {
-        squares: [
+        [
           undefined,
           undefined,
           undefined,
@@ -276,8 +231,116 @@ export const XAboutToWin: Story = {
           "O",
           undefined,
         ],
-        highlighted: false,
-      },
-    ],
+      ],
+    },
+  },
+};
+
+export const OWins: Story = {
+  args: {
+    initialGameState: {
+      turn: "X",
+      board: [
+        [
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+        ],
+        [
+          undefined,
+          "O",
+          undefined,
+          undefined,
+          "O",
+          undefined,
+          "X",
+          "O",
+          undefined,
+        ],
+        [
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          "X",
+          undefined,
+        ],
+        [
+          undefined,
+          "X",
+          undefined,
+          undefined,
+          "X",
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+        ],
+        [
+          undefined,
+          undefined,
+          undefined,
+          "O",
+          "O",
+          "O",
+          undefined,
+          undefined,
+          undefined,
+        ],
+        [
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          "X",
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+        ],
+        [
+          undefined,
+          "X",
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          "O",
+          "X",
+          undefined,
+        ],
+        [
+          undefined,
+          "X",
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          "O",
+          "O",
+          "O",
+        ],
+        [
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          "X",
+          undefined,
+        ],
+      ],
+    },
   },
 };

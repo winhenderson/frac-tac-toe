@@ -18,19 +18,18 @@ export const Empty: Story = {
   args: {
     boardId: 0,
     onClick: (_event, _boardId, _squareId) => {},
-    boardInfo: {
-      squares: [
-        "O",
-        undefined,
-        undefined,
-        undefined,
-        "X",
-        "X",
-        undefined,
-        "O",
-        "O",
-      ],
-    },
+    squares: [
+      "O",
+      undefined,
+      undefined,
+      undefined,
+      "X",
+      "X",
+      undefined,
+      "O",
+      "O",
+    ],
+    highlighted: false,
   },
 };
 
@@ -38,20 +37,18 @@ export const Highlighted: Story = {
   args: {
     boardId: 0,
     onClick: (_event, _boardId, _squareId) => {},
-    boardInfo: {
-      squares: [
-        "O",
-        undefined,
-        undefined,
-        undefined,
-        "X",
-        "X",
-        undefined,
-        "O",
-        "O",
-      ],
-      highlighted: true,
-    },
+    squares: [
+      "O",
+      undefined,
+      undefined,
+      undefined,
+      "X",
+      "X",
+      undefined,
+      "O",
+      "O",
+    ],
+    highlighted: true,
   },
 };
 
@@ -59,19 +56,18 @@ export const XWonMiddleColumn: Story = {
   args: {
     boardId: 0,
     onClick: (_event, _boardId, _squareId) => {},
-    boardInfo: {
-      squares: [
-        undefined,
-        "X",
-        undefined,
-        undefined,
-        "X",
-        undefined,
-        undefined,
-        "X",
-        undefined,
-      ],
-    },
+    squares: [
+      undefined,
+      "X",
+      undefined,
+      undefined,
+      "X",
+      undefined,
+      undefined,
+      "X",
+      undefined,
+    ],
+    highlighted: false,
   },
 };
 
@@ -79,8 +75,16 @@ export const XWon: Story = {
   args: {
     boardId: 0,
     onClick: (_event, _boardId, _squareId) => {},
-    boardInfo: {
-      squares: ["X", "O", "O", "O", "X", undefined, "X", undefined, "X"],
-    },
+    squares: ["X", "O", "O", "O", "X", undefined, "X", undefined, "X"],
+    highlighted: false,
+  },
+};
+
+export const OWon: Story = {
+  args: {
+    boardId: 0,
+    onClick: (_event, _boardId, _squareId) => {},
+    squares: ["O", "X", "X", "X", "O", undefined, "O", undefined, "O"],
+    highlighted: false,
   },
 };

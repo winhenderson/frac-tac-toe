@@ -1,5 +1,5 @@
 import { describe, test, expect } from "vitest";
-import { makeBoard } from "../helpers";
+import { emptyState, makeBoard } from "../helpers";
 import { State, updateState } from "../updateState";
 import { X } from "./whoWon.spec";
 
@@ -48,10 +48,3 @@ describe("updateState", () => {
     expect(state2).not.toEqual(state3);
   });
 });
-
-function emptyState(): State {
-  return {
-    turn: "X",
-    board: makeBoard(() => makeBoard(() => undefined)),
-  };
-}
