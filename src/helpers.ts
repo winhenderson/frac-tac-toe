@@ -1,4 +1,4 @@
-import { BoardType, GameBoard } from "./types";
+import { BoardType, GameBoard, SquareType } from "./types";
 
 export function findIfAnyHighlighted(game: GameBoard): boolean {
   const highlightedBoards = game.filter((board) => board.highlighted === true);
@@ -15,6 +15,16 @@ export function range(start: number, end: number, step: number = 1) {
     output.push(i);
   }
   return output;
+}
+
+export function whoWonMiniBoard(board: BoardType<SquareType>): SquareType {
+  return whoWon(board, (x) => x);
+}
+
+export function whoWonGameBoard(
+  gameBoard: BoardType<BoardType<SquareType>>
+): SquareType {
+  return whoWon(gameBoard, whoWonMiniBoard);
 }
 
 export function whoWon<T, K>(

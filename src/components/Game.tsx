@@ -10,7 +10,9 @@ const Game: React.FC<{ initialGameState?: GameBoard }> = ({
   initialGameState,
 }) => {
   const [turn, setTurn] = useState<"X" | "O">("X");
-  const [gameState, setGameState] = useState<GameBoard>(
+
+  // const [gameState, setGameState] = useState<GameBoard>(
+    const [state, setState ] = useState<
     initialGameState ??
       makeBoard(() => ({ squares: makeBoard(() => undefined) }))
   );
