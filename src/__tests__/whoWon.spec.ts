@@ -1,5 +1,5 @@
 import { describe, test, expect } from "vitest";
-import { BoardType, SquareType } from "../types";
+import { BoardType, GameBoard, MiniBoardType, SquareType } from "../types";
 import { makeBoard, whoWonGameBoard, whoWonMiniBoard } from "../helpers";
 
 describe("whoWonMiniBoard()", () => {
@@ -12,15 +12,15 @@ describe("whoWonMiniBoard()", () => {
   ];
 
   test.each(cases)(`correct return value`, (input, expected) => {
-    let board = input.map((square) =>
+    const board = input.map((square) =>
       square === "-" ? undefined : square
-    ) as BoardType<SquareType>;
+    ) as MiniBoardType;
     expect(whoWonMiniBoard(board)).toBe(expected);
   });
 });
 
 describe("whoWonMiniBoard()", () => {
-  const cases: Array<[BoardType<BoardType<SquareType>>, SquareType]> = [
+  const cases: Array<[GameBoard, SquareType]> = [
     [[U(), U(), U(), U(), U(), U(), U(), U(), U()], undefined],
     [[X(), U(), U(), U(), U(), U(), U(), U(), U()], undefined],
     [[X(), X(), X(), U(), U(), U(), U(), U(), U()], "X"],
@@ -33,7 +33,7 @@ describe("whoWonMiniBoard()", () => {
   });
 });
 
-export function X(): BoardType<SquareType> {
+export function X(): MiniBoardType {
   return [
     "X",
     "X",
@@ -47,7 +47,7 @@ export function X(): BoardType<SquareType> {
   ];
 }
 
-function O(): BoardType<SquareType> {
+function O(): MiniBoardType {
   return [
     "O",
     "O",
@@ -61,6 +61,6 @@ function O(): BoardType<SquareType> {
   ];
 }
 
-function U(): BoardType<SquareType> {
+function U(): MiniBoardType {
   return makeBoard(() => undefined);
 }

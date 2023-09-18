@@ -1,6 +1,6 @@
 import React, { MouseEvent } from "react";
 import Square from "./Square";
-import { BoardType, SquareType, ZeroToNine } from "../types";
+import { MiniBoardType, SquareType, ZeroToNine } from "../types";
 import clsx from "clsx";
 import { Circle, X } from "react-feather";
 import { whoWon } from "../helpers";
@@ -8,7 +8,7 @@ import { whoWon } from "../helpers";
 type Props = {
   onClick(event: MouseEvent, boardId: ZeroToNine, squareId: ZeroToNine): void;
   boardId: ZeroToNine;
-  squares: BoardType<SquareType>;
+  squares: MiniBoardType;
   highlighted: boolean;
 };
 

@@ -1,6 +1,6 @@
 import { describe, test, expect } from "vitest";
-import { emptyState, makeBoard } from "../helpers";
-import { State, updateState } from "../updateState";
+import { emptyState } from "../helpers";
+import { updateState } from "../updateState";
 import { X } from "./whoWon.spec";
 
 describe("updateState", () => {
@@ -38,7 +38,7 @@ describe("updateState", () => {
   });
 
   test("sends to any board if sent to a won board", () => {
-    let state = emptyState();
+    const state = emptyState();
     state.board[0] = X();
     state.lastSquarePlayed = 2;
 

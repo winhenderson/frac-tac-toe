@@ -1,12 +1,18 @@
-import { BoardType, GameBoard, SquareType, State } from "./types";
+import {
+  BoardType,
+  GameBoard,
+  MiniBoardType,
+  SquareType,
+  State,
+} from "./types";
 
 export function findIfAnyHighlighted(game: GameBoard): boolean {
-  const highlightedBoards = game.filter((board) => board.highlighted === true);
-  return highlightedBoards.length > 0;
+  // const highlightedBoards = game.filter((board) => board.highlighted === true);
+  // return highlightedBoards.length > 0;
 }
 
 export function range(start: number, end: number, step: number = 1) {
-  let output: number[] = [];
+  const output: number[] = [];
   if (typeof end === "undefined") {
     end = start;
     start = 0;
@@ -17,13 +23,11 @@ export function range(start: number, end: number, step: number = 1) {
   return output;
 }
 
-export function whoWonMiniBoard(board: BoardType<SquareType>): SquareType {
+export function whoWonMiniBoard(board: MiniBoardType): SquareType {
   return whoWon(board, (x) => x);
 }
 
-export function whoWonGameBoard(
-  gameBoard: BoardType<BoardType<SquareType>>
-): SquareType {
+export function whoWonGameBoard(gameBoard: GameBoard): SquareType {
   return whoWon(gameBoard, whoWonMiniBoard);
 }
 
@@ -31,7 +35,7 @@ export function whoWon<T, K>(
   inputBoard: BoardType<T>,
   extract: (value: T) => K
 ): K | undefined {
-  let board = inputBoard.map(extract) as BoardType<K>;
+  const board = inputBoard.map(extract) as BoardType<K>;
 
   if (
     areEqual([board[3], board[4], board[5]]) ||
