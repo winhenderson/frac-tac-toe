@@ -6,9 +6,15 @@ import {
   State,
 } from "./types";
 
-export function findIfAnyHighlighted(game: GameBoard): boolean {
-  // const highlightedBoards = game.filter((board) => board.highlighted === true);
-  // return highlightedBoards.length > 0;
+export function canPlayAnywhere(gameState: State): boolean {
+  if (
+    gameState.lastSquarePlayed == undefined ||
+    whoWonMiniBoard(gameState.board[gameState.lastSquarePlayed])
+  ) {
+    return true;
+  }
+
+  return false;
 }
 
 export function range(start: number, end: number, step: number = 1) {

@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { emptyState, range, whoWonGameBoard } from "../helpers";
+import {
+  emptyState,
+  canPlayAnywhere,
+  range,
+  whoWonGameBoard,
+} from "../helpers";
 import { State, ZeroToNine } from "../types";
 import clsx from "clsx";
 import { Circle, X } from "react-feather";
@@ -17,7 +22,7 @@ const Game: React.FC<{ initialGameState?: State }> = ({ initialGameState }) => {
       <InfoBox
         turn={state.turn}
         winner={whoWonGame}
-        playAnywhere={false} // TODO fix this
+        playAnywhere={canPlayAnywhere(state)}
       />
       <div className="place-self-center">
         <div className="relative grid place-items-center">
